@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_elemdel.c                                       :+:      :+:    :+:   */
+/*   pos.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/26 15:17:57 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/10/08 23:05:58 by lbenard          ###   ########.fr       */
+/*   Created: 2018/10/08 23:01:30 by lbenard           #+#    #+#             */
+/*   Updated: 2018/10/08 23:02:02 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef POS_H
+# define POS_H
 
-void    ft_elemdel(void *content, size_t content_size)
-{
-	(void)content_size;
-    free(content);
-    content = NULL;
-    content_size = 0;
-}
+void	set_pos(t_pos *pos, unsigned int x, unsigned int y);
+
+#endif

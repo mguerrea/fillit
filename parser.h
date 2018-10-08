@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_elemdel.c                                       :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/26 15:17:57 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/10/08 23:05:58 by lbenard          ###   ########.fr       */
+/*   Created: 2018/10/08 22:54:52 by lbenard           #+#    #+#             */
+/*   Updated: 2018/10/08 22:55:18 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-void    ft_elemdel(void *content, size_t content_size)
-{
-	(void)content_size;
-    free(content);
-    content = NULL;
-    content_size = 0;
-}
+int	parse_tetriminos(t_tetrimino **tetriminos, int fd);
+
+#endif

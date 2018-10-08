@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tetrimino.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 21:24:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/08 23:14:13 by lbenard          ###   ########.fr       */
+/*   Created: 2018/10/08 22:50:58 by lbenard           #+#    #+#             */
+/*   Updated: 2018/10/08 23:00:30 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TETRIMINO_H
-# define TETRIMINO_H
+#include <stdio.h>
+#include "tetrimino.h"
+#include "parser.h"
+#include <fcntl.h>
 
-#include "libft.h"
-
-typedef struct	s_pos
+int	main(int argc, char **argv)
 {
-	int	x;
-	int	y;
-}				t_pos;
+	int	fd;
+	t_tetrimino	*tetriminos;
 
-typedef struct	s_tetrimino
-{
-	char	letter;
-	t_list	*blocks;
-}				t_tetrimino;
-
-#endif
+	if (argc == 2)
+	{
+		if (!(tetriminos = (t_tetrimino*)malloc(sizeof(t_tetrimino) * 26)))
+			return (0);
+		fd = open(argv[1], O_RDONLY);
+		printf("%d\n", parse_tetriminos(&tetriminos, fd));
+	}
+}
