@@ -6,17 +6,17 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 21:47:26 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/09 00:02:43 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/10/16 23:28:34 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "tetrimino.h"
+#include "functions.h"
+#include "libft.h"
 #include <stdlib.h>
-#include "pos.h"
 #include <stdio.h>
 
-int	parse_one_tetrimino(int fd, t_tetrimino **tetriminos, ssize_t nb)
+int	parse_one_tetrimino(int fd, t_tetrimino *tetrimino)
 {
 	t_pos	origin;
 	t_pos	temp;
@@ -38,7 +38,7 @@ int	parse_one_tetrimino(int fd, t_tetrimino **tetriminos, ssize_t nb)
 				else
 				{
 					set_pos(&temp, k - origin.x, j - origin.y);
-					ft_lstaddback(&((*tetriminos)[nb].blocks),
+					ft_lstaddback(&(tetrimino->blocks),
 						ft_lstnew(&temp, sizeof(t_tetrimino)));
 				}
 	}
@@ -52,7 +52,8 @@ int	parse_tetriminos(t_tetrimino **tetriminos, int fd)
 	i = -1;
 	while (++i < 26)
 	{
-		parse_one_tetrimino(fd, tetriminos, i);
+		parse_one_tetrimino(fd, &((*tetriminos)[i]));
+		(*tetriminos)[i].letter = 'A' + i;
 		get_next_line(fd, &str);
 		if (ft_strlen(str) != 0)
 			return (0);

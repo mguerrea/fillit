@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tetrimino.h                                        :+:      :+:    :+:   */
+/*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 21:24:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/08 23:14:13 by lbenard          ###   ########.fr       */
+/*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
+/*   Updated: 2018/10/17 00:18:50 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TETRIMINO_H
-# define TETRIMINO_H
+#ifndef FUNCTION_H
+# define FUNCTION_H
 
-#include "libft.h"
+# include "libft.h"
 
 typedef struct	s_pos
 {
@@ -26,5 +26,20 @@ typedef struct	s_tetrimino
 	char	letter;
 	t_list	*blocks;
 }				t_tetrimino;
+
+typedef struct	s_grid
+{
+	char	*str;
+	size_t	width;
+}				t_grid;
+
+int		parse_tetriminos(t_tetrimino **tetriminos, int fd);
+void	set_pos(t_pos *pos, unsigned int x, unsigned int y);
+char	*get_char_at(t_pos *pos, t_grid *grid);
+
+t_grid	*create_grid(size_t width);
+
+int		check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino);
+int		solve(t_grid *grid, t_pos pos, t_tetrimino *list, char letter);
 
 #endif
