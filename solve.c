@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:30:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/17 16:46:39 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/10 21:04:48 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,39 @@ int	check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino)
 	return (1);
 }
 
-int	solve(t_grid *grid, t_pos pos, t_tetrimino *list, char letter)
+void    place_tetrimino(t_grid *grid, t_tetrimino *tetrimino, t_pos *pos)
 {
+    t_list    *blocks;
+    t_pos    origin;
+    int        i;
 
-	return (0);
+    blocks = tetrimino->blocks;
+    i = -1;
+	*get_char_at(pos, grid) = tetrimino->letter;
+    while (++i < 3)
+    {
+        origin = *pos;
+        origin.x += ((t_pos*)blocks->content)->x;
+        origin.y += ((t_pos*)blocks->content)->y;
+        *get_char_at(&origin, grid) = tetrimino->letter;
+        blocks = blocks->next;
+    }
 }
+
+
+int    solve(t_grid *grid, t_pos pos, t_tetrimino *list)
+{
+    t_pos    next;
+
+    next = pos;
+    if (check_place(grid, &pos, list) == 1)
+    {
+        place_tetrimino(grid, list, &pos);
+        printf("%s\n", grid->str);
+        // solve(grid, 
+    }
+    // solve(grid, 
+    return (0);
+}
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/17 00:18:50 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/10 21:00:44 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ char	*get_char_at(t_pos *pos, t_grid *grid);
 t_grid	*create_grid(size_t width);
 
 int		check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino);
-int		solve(t_grid *grid, t_pos pos, t_tetrimino *list, char letter);
+int		solve(t_grid *grid, t_pos pos, t_tetrimino *list);
 
 #endif

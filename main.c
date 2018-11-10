@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 22:50:58 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/17 16:34:08 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/10 21:02:31 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int	main(int argc, char **argv)
 		printf("%s\n", grid->str);
 		set_pos(&tested_pos, 0, 1);
 		printf("%d\n", check_place(grid, &tested_pos, tetriminos));
+		set_pos(&tested_pos, 0, 0);
+		solve(grid, tested_pos, tetriminos);
 	}
 }
