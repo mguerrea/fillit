@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/10 21:00:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2018/11/10 22:30:29 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_grid
 int		parse_tetriminos(t_tetrimino **tetriminos, int fd);
 void	set_pos(t_pos *pos, unsigned int x, unsigned int y);
 char	*get_char_at(t_pos *pos, t_grid *grid);
+void	increment_pos(t_pos *pos, t_grid *grid);
 
 t_grid	*create_grid(size_t width);
 

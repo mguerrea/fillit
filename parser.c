@@ -6,7 +6,7 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 21:47:26 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/16 23:28:34 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/10 23:11:50 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	parse_one_tetrimino(int fd, t_tetrimino *tetrimino)
 						ft_lstnew(&temp, sizeof(t_tetrimino)));
 				}
 	}
+	return (1);
 }
 
 int	parse_tetriminos(t_tetrimino **tetriminos, int fd)
@@ -52,11 +53,16 @@ int	parse_tetriminos(t_tetrimino **tetriminos, int fd)
 	i = -1;
 	while (++i < 26)
 	{
-		parse_one_tetrimino(fd, &((*tetriminos)[i]));
+		if (!parse_one_tetrimino(fd, &((*tetriminos)[i])))
+		{
+			(*tetriminos)[i].letter = 0;
+			return (1);
+		}
 		(*tetriminos)[i].letter = 'A' + i;
 		get_next_line(fd, &str);
 		if (ft_strlen(str) != 0)
 			return (0);
 	}
+	(*tetriminos)[i].letter = 0;
 	return (1);
 }
