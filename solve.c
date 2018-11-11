@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:30:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/10 23:46:14 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/11 14:14:27 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino)
 		origin = *pos;
 		origin.x += ((t_pos*)blocks->content)->x;
 		origin.y += ((t_pos*)blocks->content)->y;
-		printf("x: %d\ty: %d\n", origin.x, origin.y);
-		printf("%d\n", *get_char_at(&origin, grid));
 		if ((origin.x >= grid->width || origin.y >= grid->width) ||
 			*get_char_at(&origin, grid) != '.')
 			return (0);
@@ -65,6 +63,8 @@ void	delete_tetrimino(t_grid *grid, t_tetrimino *tetrimino, t_pos *pos)
 
 	blocks = tetrimino->blocks;
 	i = -1;
+	while (*get_char_at(pos, grid) != tetrimino->letter)
+		increment_pos(pos, grid);
 	*get_char_at(pos, grid) = '.';
 	while (++i < 3)
 	{
@@ -80,11 +80,10 @@ int    solve(t_grid *grid, t_pos pos, t_tetrimino *list)
 {
 	while (!(pos.x == grid->width - 1 && pos.y == grid->width -1))
 	{
-		printf("letter: %c\t", list->letter);
-		printf("x: %d\ty: %d\n", pos.x, pos.y);
 		if (check_place(grid, &pos, list))
 		{
 			place_tetrimino(grid, list, &pos);
+			set_pos(&pos, 0, 0);
 			printf("%s\n", grid->str);
 			if ((list + 1)->letter)
 			{

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 20:23:18 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/11/10 22:30:05 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/11 13:59:20 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ void	increment_pos(t_pos *pos, t_grid *grid)
 	}
 	else
 		pos->x++;
+}
+
+void	decrement_pos(t_pos *pos, t_grid *grid)
+{
+	if (pos->x > 0)
+		pos->x--;
+	else
+	{
+		pos->y--;
+		pos->x = grid->width - 1;
+	}
 }
