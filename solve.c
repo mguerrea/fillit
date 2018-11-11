@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:30:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/11 14:14:27 by mguerrea         ###   ########.fr       */
+/*   Updated: 2018/11/11 15:00:59 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int    solve(t_grid *grid, t_pos pos, t_tetrimino *list)
 		{
 			place_tetrimino(grid, list, &pos);
 			set_pos(&pos, 0, 0);
-			printf("%s\n", grid->str);
+	//		printf("%s\n", grid->str);
 			if ((list + 1)->letter)
 			{
 				if (solve(grid, pos, list + 1))
