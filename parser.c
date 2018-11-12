@@ -6,7 +6,7 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 21:47:26 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/10 23:35:47 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/12 15:48:02 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	parse_one_tetrimino(int fd, t_tetrimino *tetrimino)
 		k = -1;
 		while (str[++k])
 			if (str[k] == '#')
+			{
 				if (origin.x == -1)
 					set_pos(&origin, k, j);
 				else
@@ -41,6 +42,7 @@ int	parse_one_tetrimino(int fd, t_tetrimino *tetrimino)
 					ft_lstaddback(&(tetrimino->blocks),
 						ft_lstnew(&temp, sizeof(t_tetrimino)));
 				}
+			}
 	}
 	return (1);
 }

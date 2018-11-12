@@ -6,20 +6,20 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 19:40:25 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/10/16 22:22:09 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/12 15:36:01 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "libft.h"
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include "libft.h"
 
-#define BUFF_SIZE 32
+# define BUFF_SIZE 32
 
 int get_next_line(int fd, char **line);
 

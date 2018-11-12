@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 20:23:18 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/11/11 13:59:20 by mguerrea         ###   ########.fr       */
+/*   Updated: 2018/11/12 15:48:54 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 t_pos	position(int index, int width)
 {
-    t_pos pos;
+	t_pos pos;
 
-    pos.x = index % (width + 1);
-    pos.y = index / (width + 1);
-    return (pos);
+	pos.x = index % (width + 1);
+	pos.y = index / (width + 1);
+	return (pos);
 }
 
 char	*get_char_at(t_pos *pos, t_grid *grid)
 {
-    int index;
+	int index;
 
-    index = pos->y * (grid->width + 1) + pos->x;
-    return (&(grid->str[index]));
+	index = pos->y * (grid->width + 1) + pos->x;
+	return (&(grid->str[index]));
 }
 
 void	set_pos(t_pos *pos, unsigned int x, unsigned int y)
@@ -37,7 +37,7 @@ void	set_pos(t_pos *pos, unsigned int x, unsigned int y)
 
 void	increment_pos(t_pos *pos, t_grid *grid)
 {
-	if (pos->x == grid->width - 1)
+	if (pos->x == (int)grid->width - 1)
 	{
 		pos->x = 0;
 		pos->y++;

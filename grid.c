@@ -6,11 +6,12 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:53:47 by lbenard           #+#    #+#             */
-/*   Updated: 2018/10/17 00:10:43 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/12 15:47:09 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
+#include <stdlib.h>
 
 t_grid	*create_grid(size_t width)
 {
