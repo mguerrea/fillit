@@ -6,20 +6,21 @@
 #    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/30 16:49:08 by mguerrea          #+#    #+#              #
-#    Updated: 2018/11/12 15:55:36 by lbenard          ###   ########.fr        #
+#    Updated: 2018/11/27 22:32:58 by lbenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 NAME	=	fillit
-SOURCES	=	main.c		\
-			grid.c		\
-			parser.c	\
-			pos.c		\
-			solve.c		\
+SOURCES	=	main.c			\
+			grid.c			\
+			parser.c		\
+			pos.c			\
+			solve.c			\
 			get_next_line.c	\
-			sqrt.c
+			sqrt.c			\
+			check_errors.c
 OBJECTS	=	$(SOURCES:.c=.o)
 LIBFT	=	libft/libft.a
 
@@ -31,7 +32,7 @@ $(NAME): $(OBJECTS)
 	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) $(CFLAGS)
 
 .c.o: $(SOURCES)
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $< -Ilibft
 
 clean:
 	rm -f $(OBJECTS)

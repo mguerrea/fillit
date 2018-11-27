@@ -6,7 +6,7 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 21:47:26 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/12 15:48:02 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/27 23:20:43 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "functions.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 int	parse_one_tetrimino(int fd, t_tetrimino *tetrimino)
 {
@@ -61,9 +60,11 @@ int	parse_tetriminos(t_tetrimino **tetriminos, int fd)
 			return (i - 1);
 		}
 		(*tetriminos)[i].letter = 'A' + i;
+		if (check_coordinates(&(*tetriminos)[i]) == 0)
+			return (-1);
 		get_next_line(fd, &str);
 		if (ft_strlen(str) != 0)
-			return (0);
+			return (-1);
 	}
 	(*tetriminos)[i].letter = 0;
 	return (i - 1);

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/12 15:34:03 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/11/27 22:24:35 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_grid			*create_grid(size_t width);
 
 int				check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino);
 int				solve(t_grid *grid, t_pos pos, t_tetrimino *list);
+
+int				check_coordinates(t_tetrimino *tetrimino);
 
 int				ft_sqrt(int nb);
 
