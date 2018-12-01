@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 13:16:15 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/20 15:02:59 by lbenard          ###   ########.fr       */
+/*   Created: 2018/11/08 14:25:54 by lbenard           #+#    #+#             */
+/*   Updated: 2018/11/08 14:45:21 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
+#include <stdlib.h>
 
-# define BUFF_SIZE 2048
-
-# define ERROR -1
-# define READ_FINISH 0
-# define LINE_READ 1
-
-# include "libft.h"
-
-typedef struct	s_fd
+char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
-	int		fd;
-	char	buffer[BUFF_SIZE + 1];
-}				t_fd;
+	size_t	s_len;
+	char	*result;
+	char	*cpy;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start + len > s_len)
+		return (NULL);
+	if (!(result = (char*)malloc(len + 1)))
+		return (NULL);
+	cpy = result;
+	s += start;
+	while (len--)
+		*cpy++ = *s++;
+	*cpy = 0;
+	return (result);
+}

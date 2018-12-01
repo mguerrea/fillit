@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/27 22:24:35 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/12/01 15:02:40 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_pos
 typedef struct	s_tetrimino
 {
 	char	letter;
-	t_list	*blocks;
+	t_pos	blocks[3];
 }				t_tetrimino;
 
 typedef struct	s_grid

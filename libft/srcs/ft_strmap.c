@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 13:16:15 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/20 15:02:59 by lbenard          ###   ########.fr       */
+/*   Created: 2018/11/08 14:16:40 by lbenard           #+#    #+#             */
+/*   Updated: 2018/11/08 14:43:45 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
+#include <stdlib.h>
 
-# define BUFF_SIZE 2048
-
-# define ERROR -1
-# define READ_FINISH 0
-# define LINE_READ 1
-
-# include "libft.h"
-
-typedef struct	s_fd
+char	*ft_strmap(const char *s, char (*f)(char))
 {
-	int		fd;
-	char	buffer[BUFF_SIZE + 1];
-}				t_fd;
+	char	*new;
+	char	*cpy;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	if (!(new = (char*)malloc(ft_strlen(s) + 1)))
+		return (NULL);
+	cpy = new;
+	while (*s)
+		*cpy++ = f(*s++);
+	*cpy = 0;
+	return (new);
+}

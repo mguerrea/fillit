@@ -3,73 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/23 16:28:34 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/11/12 15:46:53 by lbenard          ###   ########.fr       */
+/*   Created: 2018/11/19 09:36:43 by lbenard           #+#    #+#             */
+/*   Updated: 2018/12/01 18:07:55 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdlib.h>
+#include <unistd.h>
 
-char	*ft_save(char *str, char *perm)
+static void	read_line(t_fd *fd, char (*buffer)[BUFF_SIZE + 1],
+	char **line, char **chr)
 {
-	if (perm && ft_strchr(perm, '\n'))
-		return (ft_strjoin(ft_strchr(perm, '\n') + 1, str));
-	if (ft_strchr(str, '\n'))
-		return (ft_strdup(ft_strchr(str, '\n') + 1));
-	return (ft_strnew(0));
+	size_t	read_size;
+	char	*tmp;
+
+	while (!(*chr = ft_strchr((char*)*line, '\n')))
+	{
+		if ((read_size = read(fd->fd, *buffer, BUFF_SIZE)) == 0)
+			return ;
+		(*buffer)[read_size] = 0;
+		tmp = *line;
+		*line = ft_strjoin(*line, *buffer);
+		free(tmp);
+		if (*line == NULL)
+			return ;
+	}
 }
 
-char	*ft_cpy_line(char *dst, char *src, char **perm)
+static int	get_line(t_fd *fd, char **line)
 {
-	size_t i;
-	size_t len;
+	char	buffer[BUFF_SIZE + 1];
+	char	*chr;
 
-	i = 0;
-	if (*perm && ft_strchr(*perm, '\n'))
+	*line = ft_strdup(fd->buffer);
+	buffer[0] = 0;
+	read_line(fd, &buffer, line, &chr);
+	if (*line == NULL)
+		return (ERROR);
+	if (ft_strlen(buffer) == 0 && ft_strlen(*line) == 0)
 	{
-		while ((*perm)[i] != '\n')
-			i++;
-		dst = ft_strncpy(ft_strnew(i), *perm, i);
-		*perm = ft_save(src, *perm);
-		return (dst);
+		free(*line);
+		return (READ_FINISH);
 	}
-	while (src[i] != '\n' && src[i])
-		i++;
-	len = (*perm) ? i + ft_strlen(*perm) : i;
-	dst = ft_strnew(len);
-	if (*perm)
-		dst = ft_strcpy(dst, *perm);
-	dst = ft_strncat(dst, src, i);
-	*perm = ft_save(src, *perm);
-	free(src);
-	return (dst);
+	if (chr)
+	{
+		ft_strcpy(fd->buffer, &chr[1]);
+		chr[0] = 0;
+	}
+	else
+		fd->buffer[0] = 0;
+	return (LINE_READ);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
-	int			ret;
-	char		buf[BUFF_SIZE + 1];
-	t_list		*list;
-	static char	*perm = NULL;
+	static t_list	*fd_list = NULL;
+	t_list			*find;
+	t_fd			new_fd;
+	int				retval;
 
-	if (!line)
-		return (-1);
-	list = NULL;
-	while ((ret = read(fd, buf, BUFF_SIZE)))
+	if (!line || fd < 0 || read(fd, NULL, 0) < 0)
+		return (ERROR);
+	new_fd.fd = fd;
+	new_fd.buffer[0] = 0;
+	if (!fd_list)
 	{
-		if (ret == -1)
-			return (-1);
-		buf[ret] = '\0';
-		ft_lstaddback(&list, ft_lstnew(buf, ret + 1));
-		if (ft_strchr(buf, '\n'))
-			break ;
+		if (!(fd_list = ft_lstnew(&new_fd, sizeof(t_fd))))
+			return (ERROR);
+		find = fd_list;
 	}
-	if (!list && !perm[0])
-		return (0);
-	*line = ft_cpy_line(*line, ft_list_to_str(list), &perm);
-	ft_lstdel(&list, ft_elemdel);
-	return (1);
+	else if (!(find = ft_lstcontentfind(fd_list, &fd, sizeof(int))))
+	{
+		if (!(find = ft_lstnew(&new_fd, sizeof(t_fd))))
+			return (ERROR);
+		ft_lstadd(&fd_list, find);
+	}
+	if ((retval = get_line(find->content, line)) == 0)
+		ft_lstremove(&fd_list, find);
+	return (retval);
 }

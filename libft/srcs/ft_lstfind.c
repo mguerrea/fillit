@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 13:16:15 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/20 15:02:59 by lbenard          ###   ########.fr       */
+/*   Created: 2018/11/10 13:30:30 by lbenard           #+#    #+#             */
+/*   Updated: 2018/11/10 18:21:11 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 2048
-
-# define ERROR -1
-# define READ_FINISH 0
-# define LINE_READ 1
-
-# include "libft.h"
-
-typedef struct	s_fd
+t_list	*ft_lstfind(const t_list *lst, const void *to_find,
+	int (*cmp)(const void*, const void*))
 {
-	int		fd;
-	char	buffer[BUFF_SIZE + 1];
-}				t_fd;
-
-int				get_next_line(const int fd, char **line);
-
-#endif
+	if (to_find && cmp)
+		while (lst)
+		{
+			if (cmp(to_find, lst->content) == 0)
+				return ((t_list*)lst);
+			lst = lst->next;
+		}
+	return (NULL);
+}

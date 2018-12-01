@@ -32,7 +32,7 @@ $(NAME): $(OBJECTS)
 	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) $(CFLAGS)
 
 .c.o: $(SOURCES)
-	$(CC) -c $(CFLAGS) -o $@ $< -Ilibft
+	$(CC) -c $(CFLAGS) -o $@ $< -Ilibft/includes
 
 clean:
 	rm -f $(OBJECTS)

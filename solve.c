@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:30:41 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/12 15:49:41 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/12/01 15:26:54 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,58 @@
 
 int		check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino)
 {
-	t_list	*blocks;
 	t_pos	origin;
-	int		i;
+	size_t	i;
 
 	if (*get_char_at(pos, grid) != '.')
 		return (0);
-	blocks = tetrimino->blocks;
-	i = -1;
-	while (++i < 3)
+	i = 0;
+	while (i < 3)
 	{
 		origin = *pos;
-		origin.x += ((t_pos*)blocks->content)->x;
-		origin.y += ((t_pos*)blocks->content)->y;
+		origin.x += tetrimino->blocks[i].x;
+		origin.y += tetrimino->blocks[i].y;
 		if ((origin.x >= (int)grid->width || origin.y >= (int)grid->width) ||
 			*get_char_at(&origin, grid) != '.')
 			return (0);
-		blocks = blocks->next;
+		i++;
 	}
 	return (1);
 }
 
 void	place_tetrimino(t_grid *grid, t_tetrimino *tetrimino, t_pos *pos)
 {
-	t_list	*blocks;
 	t_pos	origin;
-	int		i;
+	size_t	i;
 
-	blocks = tetrimino->blocks;
-	i = -1;
+	i = 0;
 	*get_char_at(pos, grid) = tetrimino->letter;
-	while (++i < 3)
+	while (i < 3)
 	{
 		origin = *pos;
-		origin.x += ((t_pos*)blocks->content)->x;
-		origin.y += ((t_pos*)blocks->content)->y;
+		origin.x += tetrimino->blocks[i].x;
+		origin.y += tetrimino->blocks[i].y;
 		*get_char_at(&origin, grid) = tetrimino->letter;
-		blocks = blocks->next;
+		i++;
 	}
 }
 
 void	delete_tetrimino(t_grid *grid, t_tetrimino *tetrimino, t_pos *pos)
 {
-	t_list	*blocks;
 	t_pos	origin;
-	int		i;
+	size_t	i;
 
-	blocks = tetrimino->blocks;
-	i = -1;
+	i = 0;
 	while (*get_char_at(pos, grid) != tetrimino->letter)
 		increment_pos(pos, grid);
 	*get_char_at(pos, grid) = '.';
-	while (++i < 3)
+	while (i < 3)
 	{
 		origin = *pos;
-		origin.x += ((t_pos*)blocks->content)->x;
-		origin.y += ((t_pos*)blocks->content)->y;
+		origin.x += tetrimino->blocks[i].x;
+		origin.y += tetrimino->blocks[i].y;
 		*get_char_at(&origin, grid) = '.';
-		blocks = blocks->next;
+		i++;
 	}
 }
 

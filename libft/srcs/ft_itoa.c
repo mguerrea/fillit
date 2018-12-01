@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbenard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 13:16:15 by lbenard           #+#    #+#             */
-/*   Updated: 2018/11/20 15:02:59 by lbenard          ###   ########.fr       */
+/*   Created: 2018/11/08 17:37:03 by lbenard           #+#    #+#             */
+/*   Updated: 2018/11/08 20:18:12 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
+#include <stdlib.h>
 
-# define BUFF_SIZE 2048
-
-# define ERROR -1
-# define READ_FINISH 0
-# define LINE_READ 1
-
-# include "libft.h"
-
-typedef struct	s_fd
+char	*ft_itoa(int n)
 {
-	int		fd;
-	char	buffer[BUFF_SIZE + 1];
-}				t_fd;
+	char	*result;
+	size_t	nb_len;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	nb_len = ft_nblen(n);
+	if (!(result = (char*)malloc(nb_len + 1)))
+		return (NULL);
+	result[nb_len] = 0;
+	if (n < 0)
+		result[0] = '-';
+	while (42)
+	{
+		result[--nb_len] = '0' + ft_abs(n % 10);
+		n /= 10;
+		if (!n)
+			break ;
+	}
+	return (result);
+}
