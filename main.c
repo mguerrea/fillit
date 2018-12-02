@@ -6,12 +6,13 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 22:50:58 by lbenard           #+#    #+#             */
-/*   Updated: 2018/12/01 18:07:08 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/12/02 15:29:08 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "functions.h"
+#include "libft.h"
 #include <fcntl.h>
 
 void	fillit(size_t grid_size, t_tetrimino *tetriminos)
@@ -45,7 +46,7 @@ int		main(int argc, char **argv)
 		if (!(tetriminos = ft_memalloc(sizeof(t_tetrimino) * 27)))
 			return (0);
 		fd = open(argv[1], O_RDONLY);
-		if ((result = parse_tetriminos(&tetriminos, fd)) == -1)
+		if ((result = parse_tetriminos(&tetriminos, fd)) < 0)
 		{
 			ft_putendl_fd("error", 1);
 			return (0);

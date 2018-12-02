@@ -6,14 +6,14 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 23:24:31 by lbenard           #+#    #+#             */
-/*   Updated: 2018/12/01 15:02:40 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/12/02 15:30:19 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
-# include "libft.h"
+# include <string.h>
 
 typedef struct	s_pos
 {
@@ -45,6 +45,7 @@ int				check_place(t_grid *grid, t_pos *pos, t_tetrimino *tetrimino);
 int				solve(t_grid *grid, t_pos pos, t_tetrimino *list);
 
 int				check_coordinates(t_tetrimino *tetrimino);
+int				check_c(char *str);
 
 int				ft_sqrt(int nb);
 

@@ -3,17 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+         #
+#    By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/08/30 16:49:08 by mguerrea          #+#    #+#              #
-#    Updated: 2018/11/27 22:32:58 by lbenard          ###   ########.fr        #
+#    Created: 2018/12/02 14:35:22 by lbenard           #+#    #+#              #
+#    Updated: 2018/12/02 14:41:51 by lbenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
-NAME	=	fillit
-SOURCES	=	main.c			\
+MAKE	:= make
+CC		:= gcc
+LD		:= gcc
+RM		:= rm -rf
+
+SRCDIR	:=	./
+INCLDIR	:=	-I libft/includes
+LIBDIR 	:=	libft/
+
+CFLAGS	:=	-Wall -Wextra -Werror $(INCLDIR)
+LDFLAGS	:=	-L$(LIBDIR) -lft
+
+SRCS    :=	main.c			\
 			grid.c			\
 			parser.c		\
 			pos.c			\
@@ -21,21 +30,37 @@ SOURCES	=	main.c			\
 			get_next_line.c	\
 			sqrt.c			\
 			check_errors.c
-OBJECTS	=	$(SOURCES:.c=.o)
-LIBFT	=	libft/libft.a
+SRCS	:=	$(addprefix $(SRCDIR)/, $(SRCS))
+OBJS	:=	$(patsubst %.c,%.o,$(SRCS))
+DEPS	:=	Makefile functions.h
+LIB		:=	$(LIBDIR)/libft.a
+NAME	:=	fillit
 
 all: $(NAME)
 
-re: fclean all
+$(LIB):
+	@$(MAKE) -C libft/
 
-$(NAME): $(OBJECTS)
-	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) $(CFLAGS)
+$(NAME): $(LIB) $(OBJS)
+	@echo "\033[32m  Creating: \033[0m$(NAME)"
+	@$(LD) $(LDFLAGS) -o $(NAME) $(OBJS)
 
-.c.o: $(SOURCES)
-	$(CC) -c $(CFLAGS) -o $@ $< -Ilibft/includes
+%.o: %.c $(DEPS)
+	@printf "\033[32m Compiling: \033[0m$< -> $@\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS)
+	@printf "\033[32m  Cleaning: \033[0m$(OBJS)\033[0m\n"
+	@$(RM) $(OBJS)
+	@$(MAKE) -C libft clean
 
 fclean: clean
-	rm -f $(NAME)
+	@printf "\033[32m  Removing: \033[0m"
+	@find . -name "fillit" -exec sh -c 'basename {}' \; | tr "\n" " "
+	@echo ""
+	@$(RM) $(NAME)
+	@$(MAKE) -C libft fclean
+
+re: fclean all
+
+.PHONY: all clean fclean re

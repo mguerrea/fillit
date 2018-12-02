@@ -6,7 +6,7 @@
 /*   By: lbenard <lbenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 21:28:35 by lbenard           #+#    #+#             */
-/*   Updated: 2018/12/01 18:07:48 by lbenard          ###   ########.fr       */
+/*   Updated: 2018/12/02 15:27:56 by lbenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ static int	is_adjacent(t_pos a, t_pos b)
 	if ((ft_abs(a.x - b.x) == 1 && a.y - b.y == 0) ||
 		(ft_abs(a.y - b.y) == 1 && a.x - b.x == 0))
 		return (1);
+	return (0);
+}
+
+int			check_c(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '.' && str[i] != '#')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
